@@ -171,6 +171,7 @@ public  class Main extends JFrame {
             tfdata.setText(calendar.getDisplayName
                     (Calendar.MONTH, Calendar.LONG, Locale.ENGLISH)+ " " + calendar.get(Calendar.YEAR));
                   }// Алгоритм для  календаря!
-    //Тест GIT
+    //    //Тест GIT
+    // Еще тест и еще тест
 }
 
