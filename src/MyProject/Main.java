@@ -18,10 +18,13 @@ public  class Main extends JFrame {
     JPanel panel2 = new JPanel();
     JPanel panel4 = new JPanel();
     JPanel panel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    //JTable table = new JTable();
     JTextField tfdata = new JTextField();
     JTextField tfDay = new JTextField();
     JButton[] buttons;
     String[] raspisanie;
+    String[][] pari;
+    JTextArea textArea = new JTextArea(6,3);
 
 
 
@@ -62,9 +65,11 @@ public  class Main extends JFrame {
         constraints.gridheight=3;
         constraints.gridy = 0;
         constraints.gridx = 1;
+        panel2.add(textArea);
         tfDay.setPreferredSize(new Dimension(250,30));
         tfDay.setHorizontalAlignment(JTextField.CENTER);
         panel2.add(tfDay);
+
         panelCalc.add(panel2, constraints);// Паналь 2!
 
         constraints.gridheight=1;
@@ -104,6 +109,16 @@ public  class Main extends JFrame {
         for (int i = 0; i < raspisanie.length; i++) {
             raspisanie[i] = "Первая пара дня " + (i+1);
         }
+        pari = new String[6][3];
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j <3; j++) {
+                pari[i][j] =  " String" + j + " ";
+                textArea.append(pari[i][j]+" ");
+            }
+
+            textArea.append("\n");
+        }
+
 
     }
 
@@ -171,7 +186,6 @@ public  class Main extends JFrame {
             tfdata.setText(calendar.getDisplayName
                     (Calendar.MONTH, Calendar.LONG, Locale.ENGLISH)+ " " + calendar.get(Calendar.YEAR));
                   }// Алгоритм для  календаря!
-    //    //Тест GIT
-    // Еще тест и еще тест
+  
 }
 
