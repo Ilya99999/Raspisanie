@@ -18,7 +18,6 @@ public  class Main extends JFrame {
     JPanel panel2 = new JPanel();
     JPanel panel4 = new JPanel();
     JPanel panel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    //JTable table = new JTable();
     JTextField tfdata = new JTextField();
     JTextField tfDay = new JTextField();
     JButton[] buttons;
@@ -27,16 +26,14 @@ public  class Main extends JFrame {
     JTextArea textArea = new JTextArea(6,3);
 
 
-
-
     public static void main (String[] args) {
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    new Main();
-                }
-            });
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Main();
+            }
+        });
+    }
 
     Main () {
         JFrame jpf = new JFrame();
@@ -112,7 +109,7 @@ public  class Main extends JFrame {
         pari = new String[6][3];
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j <3; j++) {
-                pari[i][j] =  " String" + j + " ";
+                pari[i][j] = (i+1) + " String" + j + " ";
                 textArea.append(pari[i][j]+" ");
             }
 
@@ -149,22 +146,21 @@ public  class Main extends JFrame {
             raspisanie[i] = "Первая пара дня" + (i+1);
         }
         CalcListener();
-
         // Метод для кнопок, перехода  месяца!
     }
 
 
     private void DrawCal(JPanel panel) {
         buttons = new JButton[calendar.getActualMaximum(Calendar.DAY_OF_MONTH)];
-            String[] header = {"Пн", "Вт", "Ср", "Чт", "Пт", "Сб","Вc" };
-            for (String s : header) {
-                panel.add(new JTextField(s, 0));
-            }
-            for (int i = 0; i < calendar2.get(Calendar.DAY_OF_WEEK) -2 ; i++) {
-                JButton btn = new JButton("*");
-                btn.setEnabled(false);
-                panel.add(btn);
-            }
+        String[] header = {"Пн", "Вт", "Ср", "Чт", "Пт", "Сб","Вc" };
+        for (String s : header) {
+            panel.add(new JTextField(s, 0));
+        }
+        for (int i = 0; i < calendar2.get(Calendar.DAY_OF_WEEK) -2 ; i++) {
+            JButton btn = new JButton("*");
+            btn.setEnabled(false);
+            panel.add(btn);
+        }
 
 
         for (int i = 0; i < buttons.length; i++) {
@@ -172,20 +168,20 @@ public  class Main extends JFrame {
             panel.add(buttons[i]);
 
         }
+    }
+
+
+    public  void Switch (boolean key){
+        if (key){
+            calendar2.set(calendar2.get(Calendar.YEAR),calendar2.get(Calendar.MONTH)+1, 1);
+            calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
+        } else{
+            calendar2.set(calendar2.get(Calendar.YEAR),calendar2.get(Calendar.MONTH)-1, 1);
+            calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)-1, calendar.get(Calendar.DAY_OF_MONTH));
         }
+        tfdata.setText(calendar.getDisplayName
+                (Calendar.MONTH, Calendar.LONG, Locale.ENGLISH)+ " " + calendar.get(Calendar.YEAR));
+    }// Алгоритм для  календаря!
 
-
-        public  void Switch (boolean key){
-            if (key){
-                calendar2.set(calendar2.get(Calendar.YEAR),calendar2.get(Calendar.MONTH)+1, 1);
-                calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
-            } else{
-                calendar2.set(calendar2.get(Calendar.YEAR),calendar2.get(Calendar.MONTH)-1, 1);
-                calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)-1, calendar.get(Calendar.DAY_OF_MONTH));
-            }
-            tfdata.setText(calendar.getDisplayName
-                    (Calendar.MONTH, Calendar.LONG, Locale.ENGLISH)+ " " + calendar.get(Calendar.YEAR));
-                  }// Алгоритм для  календаря!
-  
 }
 
