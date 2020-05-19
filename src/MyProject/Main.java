@@ -4,29 +4,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
+import static MyProject.Clalend.calendar;
+import static MyProject.Clalend.calendar2;
+import static MyProject.Clalend.time;
+
 public  class Main extends JFrame {
-    private static  int WIDTH = 800;
-    private static  int HEIGHT = 800;
-
-
-
-    GregorianCalendar calendar = new GregorianCalendar();
-    GregorianCalendar calendar2 = new GregorianCalendar();
-    Date time = new Date();
+    private static int WIDTH = 800;
+    private static int HEIGHT = 800;
     JPanel panelCalc = new JPanel(new GridBagLayout());
-    JPanel panel1 = new JPanel(new GridLayout(0,7));
+    JPanel panel1 = new JPanel(new GridLayout(0, 7));
     JPanel panel2 = new JPanel();
     JPanel panel4 = new JPanel();
     JPanel panel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    JTextField tfdata = new JTextField();
-    JTextField tfDay = new JTextField();
-    JButton[] buttons;
-    String[] raspisanie;
-    String[][] pari;
-    JTextArea textArea = new JTextArea(6,3);
+    public static JTextField tfdata = new JTextField();
+    static JTextField tfDay = new JTextField();
+    static JButton[] buttons;
+    static String[] raspisanie;
+    static String[][] pari;
+    static JTextArea textArea = new JTextArea(6, 3);
 
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -35,7 +33,7 @@ public  class Main extends JFrame {
         });
     }
 
-    Main () {
+    Main() {
         JFrame jpf = new JFrame();
         jpf.setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
@@ -52,37 +50,37 @@ public  class Main extends JFrame {
         panel2.setBackground(new Color(195, 233, 69));
         panel3.setBackground(new Color(155, 22, 169));
         panel4.setBackground(new Color(235, 133, 19));
-
         panelCalc(panel1, 0.4);
         constraints.gridy = 0;
         constraints.gridx = 0;
         panelCalc.add(panel1, constraints);// Паналь 1!
 
         panelCalc(panel2, 1);
-        constraints.gridheight=3;
+        constraints.gridheight = 3;
         constraints.gridy = 0;
         constraints.gridx = 1;
         panel2.add(textArea);
-        tfDay.setPreferredSize(new Dimension(250,30));
+        tfDay.setPreferredSize(new Dimension(250, 30));
         tfDay.setHorizontalAlignment(JTextField.CENTER);
         panel2.add(tfDay);
 
+
         panelCalc.add(panel2, constraints);// Паналь 2!
 
-        constraints.gridheight=1;
+        constraints.gridheight = 1;
         JButton btnBack = new JButton("Back");
         JButton btnNext = new JButton("Next");
 
         btnNext.addActionListener(e -> {
-            Switch(true);
+            Clalend.Switch(true);
             RepaintCal();
 
         });
         btnBack.addActionListener(e -> {
-            Switch(false);
+            Clalend.Switch(false);
             RepaintCal();
         });
-        tfdata.setPreferredSize(new Dimension(250,30));
+        tfdata.setPreferredSize(new Dimension(250, 30));
         panel3.add(btnBack);
         panel3.add(tfdata);
         panel3.add(btnNext);
@@ -99,25 +97,19 @@ public  class Main extends JFrame {
 
         calendar.setTime(time);
         calendar2.setTime(time);
-        calendar2.set(calendar2.get(Calendar.YEAR),calendar2.get(Calendar.MONTH), 1);
-        DrawCal(panel1);
-        CalcListener();
+        calendar2.set(calendar2.get(Calendar.YEAR), calendar2.get(Calendar.MONTH), 1);
+        Clalend.DrawCal(panel1);
+        Clalend.CalcListener();
         raspisanie = new String[buttons.length];   //исправить
         for (int i = 0; i < raspisanie.length; i++) {
-            raspisanie[i] = "Первая пара дня " + (i+1);
+            raspisanie[i] = "Первая пара дня " + (i + 1);
         }
         pari = new String[6][3];
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j <3; j++) {
-                pari[i][j] = (i+1) + " String" + j + " ";
-                textArea.append(pari[i][j]+" ");
-            }
-
-            textArea.append("\n");
-        }
+        Table.DrawPari();
 
 
     }
+
 
     private void panelCalc(JPanel panel, double v) {
         panel.setMaximumSize(new Dimension(WIDTH / 2, (int) (HEIGHT * v)));
@@ -125,63 +117,19 @@ public  class Main extends JFrame {
         panel.setMinimumSize(new Dimension(WIDTH / 2, (int) (HEIGHT * v)));
     }
 
-    private void CalcListener() {
-        for (int i = 0; i < buttons.length; i++) {
-            int finalI = i;
-            buttons[i].addActionListener(e -> {
-                tfDay.setText(buttons[finalI].getText()+" "+calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH)+ " " + calendar.get(Calendar.YEAR));
-                System.out.println(raspisanie[finalI]);
-            });
-        }
-    }
 
     private void RepaintCal() {
         panel1.removeAll();
         panel1.revalidate();
         panel1.repaint();
-        DrawCal(panel1);
-
+        Clalend.DrawCal(panel1);
         raspisanie = new String[buttons.length];   //исправить
         for (int i = 0; i < raspisanie.length; i++) {
-            raspisanie[i] = "Первая пара дня" + (i+1);
+            raspisanie[i] = "Первая пара дня" + (i + 1);
         }
-        CalcListener();
+        Clalend.CalcListener();
         // Метод для кнопок, перехода  месяца!
     }
 
 
-    private void DrawCal(JPanel panel) {
-        buttons = new JButton[calendar.getActualMaximum(Calendar.DAY_OF_MONTH)];
-        String[] header = {"Пн", "Вт", "Ср", "Чт", "Пт", "Сб","Вc" };
-        for (String s : header) {
-            panel.add(new JTextField(s, 0));
-        }
-        for (int i = 0; i < calendar2.get(Calendar.DAY_OF_WEEK) -2 ; i++) {
-            JButton btn = new JButton("*");
-            btn.setEnabled(false);
-            panel.add(btn);
-        }
-
-
-        for (int i = 0; i < buttons.length; i++) {
-            buttons[i]= new JButton(Integer.toString(i+1));
-            panel.add(buttons[i]);
-
-        }
-    }
-
-
-    public  void Switch (boolean key){
-        if (key){
-            calendar2.set(calendar2.get(Calendar.YEAR),calendar2.get(Calendar.MONTH)+1, 1);
-            calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)+1, calendar.get(Calendar.DAY_OF_MONTH));
-        } else{
-            calendar2.set(calendar2.get(Calendar.YEAR),calendar2.get(Calendar.MONTH)-1, 1);
-            calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH)-1, calendar.get(Calendar.DAY_OF_MONTH));
-        }
-        tfdata.setText(calendar.getDisplayName
-                (Calendar.MONTH, Calendar.LONG, Locale.ENGLISH)+ " " + calendar.get(Calendar.YEAR));
-    }// Алгоритм для  календаря!
-
 }
-
