@@ -9,8 +9,8 @@ import static MyProject.Clalend.calendar2;
 import static MyProject.Clalend.time;
 
 public  class Main extends JFrame {
-    private static int WIDTH = 800;
-    private static int HEIGHT = 800;
+    public static int WIDTH = 800;
+    public static int HEIGHT = 800;
     JPanel panelCalc = new JPanel(new GridBagLayout());
     JPanel panel1 = new JPanel(new GridLayout(0, 7));
     JPanel panel2 = new JPanel();
@@ -21,7 +21,9 @@ public  class Main extends JFrame {
     static JButton[] buttons;
     static String[] raspisanie;
     static String[][] pari;
-    static JTextArea textArea = new JTextArea(6, 3);
+    public static JFrame jpf = new JFrame();
+
+
 
 
     public static void main(String[] args) {
@@ -34,7 +36,7 @@ public  class Main extends JFrame {
     }
 
     Main() {
-        JFrame jpf = new JFrame();
+
         jpf.setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
         setLocation(200, 200);
@@ -44,6 +46,7 @@ public  class Main extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
 
         panelCalc.setBackground(new Color(55, 0, 0, 254));
+        panelCalc.setSize(jpf.getWidth(),jpf.getHeight());
         getContentPane().add(panelCalc);
 
         panel1.setBackground(new Color(55, 223, 69));
@@ -59,22 +62,17 @@ public  class Main extends JFrame {
         constraints.gridheight = 3;
         constraints.gridy = 0;
         constraints.gridx = 1;
-        panel2.add(textArea);
         tfDay.setPreferredSize(new Dimension(250, 30));
         tfDay.setHorizontalAlignment(JTextField.CENTER);
         panel2.add(tfDay);
-
-
         panelCalc.add(panel2, constraints);// Паналь 2!
 
         constraints.gridheight = 1;
         JButton btnBack = new JButton("Back");
         JButton btnNext = new JButton("Next");
-
         btnNext.addActionListener(e -> {
             Clalend.Switch(true);
             RepaintCal();
-
         });
         btnBack.addActionListener(e -> {
             Clalend.Switch(false);
@@ -88,7 +86,6 @@ public  class Main extends JFrame {
         constraints.gridy = 1;
         constraints.gridx = 0;
         panelCalc.add(panel3, constraints);// Паналь 3!
-
 
         panelCalc(panel4, 0.5);
         constraints.gridy = 2;
@@ -104,19 +101,16 @@ public  class Main extends JFrame {
         for (int i = 0; i < raspisanie.length; i++) {
             raspisanie[i] = "Первая пара дня " + (i + 1);
         }
-        pari = new String[6][3];
-        Table.DrawPari();
-
+        pari = new String[6][4];
+        Table.DrawPari(panel2);
 
     }
 
-
     private void panelCalc(JPanel panel, double v) {
-        panel.setMaximumSize(new Dimension(WIDTH / 2, (int) (HEIGHT * v)));
+//        panel.setMaximumSize(new Dimension(WIDTH / 2, (int) (HEIGHT * v)));
         panel.setPreferredSize(new Dimension(WIDTH / 2, (int) (HEIGHT * v)));
         panel.setMinimumSize(new Dimension(WIDTH / 2, (int) (HEIGHT * v)));
     }
-
 
     private void RepaintCal() {
         panel1.removeAll();
@@ -129,7 +123,6 @@ public  class Main extends JFrame {
         }
         Clalend.CalcListener();
         // Метод для кнопок, перехода  месяца!
+
     }
-
-
 }
