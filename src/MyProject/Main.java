@@ -9,11 +9,11 @@ import static MyProject.Clalend.calendar2;
 import static MyProject.Clalend.time;
 
 public  class Main extends JFrame {
-    public static int WIDTH = 800;
-    public static int HEIGHT = 800;
+    public static int WIDTH = 1000;
+    public static int HEIGHT = 1000;
     JPanel panelCalc = new JPanel(new GridBagLayout());
     JPanel panel1 = new JPanel(new GridLayout(0, 7));
-    JPanel panel2 = new JPanel();
+    public JPanel panel2 = new JPanel();
     JPanel panel4 = new JPanel();
     JPanel panel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     public static JTextField tfdata = new JTextField();
@@ -36,7 +36,6 @@ public  class Main extends JFrame {
     }
 
     Main() {
-
         jpf.setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
         setLocation(200, 200);
@@ -102,7 +101,8 @@ public  class Main extends JFrame {
             raspisanie[i] = "Первая пара дня " + (i + 1);
         }
         pari = new String[6][4];
-        Table.DrawPari(panel2);
+        Data.pullData();
+        new Table().makeUI(panel2);
 
     }
 
