@@ -2,38 +2,25 @@ package MyProject;
 
 
 import javax.swing.*;
-
-import java.awt.*;
-
-import static MyProject.Main.pari;
-import static java.awt.image.ImageObserver.WIDTH;
+import javax.swing.table.DefaultTableModel;
 
 
 public class Table {
-   public static Object[] colums = new String[]{ "Korpus","Kab", "Name", "Prepod"};
-   public static void DrawPari(JPanel panel) {
-
-      for (int i = 0; i < 6; i++) {
-         pari[i][0] = "K1";
-         pari[i][1] = "406";
-         pari[i][2] = "Математика";
-         pari[i][3] = "Бибиков";
-      }//Будет  браться  из БД!!
-      for (int i = 0; i < 6; i++) {
-         for (int j = 0; j < 4; j++) {
-         }
-      }
-
-      JTable table = new JTable(pari, colums);
-
-      int width = Main.WIDTH/3;
-      int height = Main.HEIGHT;
-      table.setPreferredScrollableViewportSize(new Dimension(width,height));
-      panel.add(new JScrollPane(table));
 
 
+   private  final String[] columnNames = {"№-Par","Korpus","Kab", "Name", "Prepod"};
+   public static Object[][] data = new Object[9][5];
+   private  DefaultTableModel model = new DefaultTableModel(data, columnNames);
+   private  final JTable table = new JTable(model);
 
-   }// Метод  отрисовки пар!
-}
+   public void makeUI(JPanel pnl) {
 
+      model.setColumnCount(5);
+      JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+      sp.setResizeWeight(.3);
+      sp.setTopComponent(new JScrollPane(table));
+      pnl.add(sp);
+
+   }
+}// Метод  отрисовки пар!
 
