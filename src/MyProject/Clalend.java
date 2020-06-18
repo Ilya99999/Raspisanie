@@ -6,11 +6,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import static MyProject.Main.panel2;
+
 public class Clalend {
    static GregorianCalendar calendar = new GregorianCalendar();
    static GregorianCalendar calendar2 = new GregorianCalendar();
    static Date time = new Date();
-    
+    public static Table table = new Table();
     public static void DrawCal(JPanel panel) {
         Main.buttons = new JButton[calendar.getActualMaximum(Calendar.DAY_OF_MONTH)];
         System.out.println(calendar.getTime());
@@ -48,6 +50,10 @@ public class Clalend {
             Main.buttons[i].addActionListener(e -> {
                 Main.tfDay.setText(Main.buttons[finalI].getText()+" "+calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH)+ " " + calendar.get(Calendar.YEAR));
                 System.out.println(Main.raspisanie[finalI]);
+                Data.pullData(finalI);
+                table.makeUI(panel2);
+                panel2.repaint();
+                panel2.revalidate();
             });
         }
 }

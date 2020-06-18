@@ -1,21 +1,16 @@
 package MyProject;
 
-import org.w3c.dom.ls.LSOutput;
-
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-import java.util.Arrays;
-
 
 public class Data {
     static BufferedReader reader;
-    public static void pullData(){
+    public static void pullData(int finalI){
         try {
         reader = new BufferedReader(new FileReader(
-                "1.txt"));
+                "1."+finalI +".txt"));
         String line = reader.readLine();
         String[] s;
         int key = 0;
@@ -32,6 +27,5 @@ public class Data {
     } catch (IOException e) {
             System.out.println("Нет файла");;
     }
-
     }
 }

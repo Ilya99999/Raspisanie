@@ -13,7 +13,7 @@ public  class Main extends JFrame {
     public static int HEIGHT = 1000;
     JPanel panelCalc = new JPanel(new GridBagLayout());
     JPanel panel1 = new JPanel(new GridLayout(0, 7));
-    public JPanel panel2 = new JPanel();
+    public static JPanel panel2 = new JPanel();
     JPanel panel4 = new JPanel();
     JPanel panel3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     public static JTextField tfdata = new JTextField();
@@ -22,8 +22,6 @@ public  class Main extends JFrame {
     static String[] raspisanie;
     static String[][] pari;
     public static JFrame jpf = new JFrame();
-
-
 
 
     public static void main(String[] args) {
@@ -96,13 +94,14 @@ public  class Main extends JFrame {
         calendar2.set(calendar2.get(Calendar.YEAR), calendar2.get(Calendar.MONTH), 1);
         Clalend.DrawCal(panel1);
         Clalend.CalcListener();
+
         raspisanie = new String[buttons.length];   //исправить
         for (int i = 0; i < raspisanie.length; i++) {
-            raspisanie[i] = "Первая пара дня " + (i + 1);
+           raspisanie[i] = "Первая пара дня " + (i + 1);
         }
         pari = new String[6][4];
-        Data.pullData();
-        new Table().makeUI(panel2);
+
+
 
     }
 

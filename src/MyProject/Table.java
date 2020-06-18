@@ -14,7 +14,6 @@ public class Table {
    private  final JTable table = new JTable(model);
 
    public void makeUI(JPanel pnl) {
-
       model.setColumnCount(5);
       JSplitPane sp = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
       sp.setResizeWeight(.3);
